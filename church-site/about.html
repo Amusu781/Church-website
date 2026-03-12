@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — The Covenant of Peace Evangelical Mission</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+
+    /* ===== MISSION & VISION CARDS ===== */
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1120px;
+      margin: 3rem auto 0;
+    }
+
+    .mv-card {
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mv-card--mission {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .mv-card--vision {
+      background: var(--wine);
+      color: var(--white);
+    }
+
+    /* Decorative large letter watermark */
+    .mv-card::before {
+      content: attr(data-letter); /* reads from data-letter attribute in HTML */
+      position: absolute;
+      right: -10px; bottom: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mv-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--gold-light);
+    }
+
+    .mv-card p {
+      font-size: 0.92rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ===== BELIEFS SECTION ===== */
+    .beliefs-section {
+      padding: var(--section-pad);
+      background: var(--off-white);
+    }
+
+    .beliefs-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .beliefs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .belief-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--wine);
+      transition: transform 0.3s ease;
+    }
+
+    .belief-item:hover {
+      transform: translateX(4px); /* Slides right on hover */
+    }
+
+    .belief-item:nth-child(even) {
+      border-left-color: var(--navy);
+    }
+
+    .belief-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      min-width: 32px;
+    }
+
+    .belief-item h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+
+    .belief-item p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ===== LEADERSHIP SECTION ===== */
+    .leadership-section {
+      padding: var(--section-pad);
+      background: var(--navy);
+    }
+
+    .leadership-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .leader-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: var(--radius);
+      padding: 3rem;
+      margin-top: 3rem;
+    }
+
+    .leader-photo {
+      aspect-ratio: 3/4;
+      background: linear-gradient(180deg, rgba(22,37,80,0.3) 0%, rgba(107,30,62,0.5) 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      border: 1px solid rgba(201,168,76,0.2);
+      overflow: hidden;
+    }
+
+    .leader-role {
+      display: inline-block;
+      background: var(--wine);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 0.8rem;
+    }
+
+    .leader-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .leader-bio {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.9;
+    }
+
+    /* ===== VALUES SECTION ===== */
+    .values-section {
+      padding: var(--section-pad);
+      background: var(--light-bg);
+    }
+
+    .values-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(13,27,62,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(13,27,62,0.1);
+    }
+
+    .value-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--wine));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1.2rem;
+    }
+
+    .value-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .value-card p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ===== LOGO & PROPHET PHOTO ===== */
+    .navbar-logo {
+      height: 44px; width: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+
+    .footer-logo {
+      height: 55px; width: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-bottom: 0.8rem;
+      border: 2px solid rgba(201,168,76,0.3);
+    }
+
+    /*
+      The leader photo on the About page.
+      We override the old placeholder div styles
+      and make the real <img> fill the card naturally.
+    */
+    .leader-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--radius);
+      display: block;
+      image-rendering: high-quality;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .mv-grid         { grid-template-columns: 1fr; }
+      .beliefs-grid    { grid-template-columns: 1fr; }
+      .leader-card     { grid-template-columns: 1fr; gap: 2rem; }
+      .values-grid     { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION (same on every page) -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
+      <span class="navbar-name">The Covenant of Peace<br>Evangelical Mission</span>
+    </div>
+    <ul class="navbar-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO (the banner at top — defined in styles.css) -->
+  <header class="page-hero">
+    <p class="page-hero-label animate-1">Who We Are</p>
+    <h1 class="animate-2">About The Covenant<br>of Peace</h1>
+  </header>
+
+  <!-- ============================================================
+    MISSION & VISION
+  ============================================================ -->
+  <section class="section section--light">
+    <div class="container">
+      <p class="eyebrow">Our Purpose</p>
+      <h2 class="section-title">Mission & Vision</h2>
+      <p class="section-body">
+        The Covenant of Peace Evangelical Mission exists to preach the undiluted Gospel
+        of Jesus Christ, make disciples of all nations, and demonstrate God's covenant
+        faithfulness to every generation.
+      </p>
+
+      <!--
+        data-letter is a custom HTML attribute.
+        Our CSS reads it with content: attr(data-letter)
+        to show it as a watermark.
+      -->
+      <div class="mv-grid">
+        <div class="mv-card mv-card--mission animate-1" data-letter="M">
+          <h3>Our Mission</h3>
+          <p>
+            To preach the Gospel of Jesus Christ in its fullness, raise an army of
+            Spirit-filled believers, and impact our community in Ibeju-Lekki and
+            beyond with the love, power, and peace of God.
+          </p>
+        </div>
+        <div class="mv-card mv-card--vision animate-2" data-letter="V">
+          <h3>Our Vision</h3>
+          <p>
+            To be a house of prayer, healing, and covenant for all peoples — a church
+            where the broken are restored, the lost are found, and every family is
+            established on the unshakeable Word of God.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    CORE BELIEFS
+  ============================================================ -->
+  <section class="beliefs-section">
+    <div class="beliefs-inner">
+      <p class="eyebrow">What We Believe</p>
+      <h2 class="section-title">Our Core Beliefs</h2>
+      <p class="section-body">
+        Our faith is grounded in the Holy Scriptures and the foundational truths
+        of the Christian faith.
+      </p>
+
+      <!--
+        Each belief is a flex row: number + text side by side.
+        border-left gives it the colored left stripe.
+      -->
+      <div class="beliefs-grid">
+        <div class="belief-item animate-1">
+          <span class="belief-num">01</span>
+          <div>
+            <h4>The Holy Bible</h4>
+            <p>We believe the Holy Bible is the inspired, infallible, and authoritative Word of God.</p>
+          </div>
+        </div>
+        <div class="belief-item animate-2">
+          <span class="belief-num">02</span>
+          <div>
+            <h4>The Trinity</h4>
+            <p>We believe in one God — Father, Son, and Holy Spirit — co-equal and co-eternal.</p>
+          </div>
+        </div>
+        <div class="belief-item animate-1">
+          <span class="belief-num">03</span>
+          <div>
+            <h4>Salvation by Grace</h4>
+            <p>We believe salvation comes through faith in Jesus Christ alone — by grace, not works.</p>
+          </div>
+        </div>
+        <div class="belief-item animate-2">
+          <span class="belief-num">04</span>
+          <div>
+            <h4>The Holy Spirit</h4>
+            <p>We believe in the baptism of the Holy Spirit with evidence of speaking in tongues.</p>
+          </div>
+        </div>
+        <div class="belief-item animate-1">
+          <span class="belief-num">05</span>
+          <div>
+            <h4>Divine Healing</h4>
+            <p>We believe in the healing power of God available to all believers through faith and prayer.</p>
+          </div>
+        </div>
+        <div class="belief-item animate-2">
+          <span class="belief-num">06</span>
+          <div>
+            <h4>The Second Coming</h4>
+            <p>We believe in the imminent, personal, and glorious return of our Lord Jesus Christ.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    LEADERSHIP
+  ============================================================ -->
+  <section class="leadership-section">
+    <div class="leadership-inner">
+      <p class="eyebrow" style="color:var(--gold-light)">
+        <span style="background:var(--gold-light);display:inline-block;width:24px;height:2px;margin-right:0.7rem;vertical-align:middle;"></span>
+        Our Leadership
+      </p>
+      <h2 class="section-title" style="color:var(--white)">Meet Our Prophet</h2>
+      <p class="section-body">
+        Anointed and called by God, our prophet leads with the Word, prayer, and a
+        deep commitment to God's covenant people.
+      </p>
+
+      <div class="leader-card animate-1">
+        <!-- Photo placeholder — replace the 👤 with an <img> tag when you have a photo -->
+        <img src="images/PROPHET_OJO.png" alt="Prophet Ojo Samson Olumuyiwa" class="leader-photo-img">
+        <div>
+          <span class="leader-role">Prophet</span>
+          <h3 class="leader-name">Prophet Ojo<br>Samson Olumuyiwa</h3>
+          <p class="leader-bio">
+            Prophet Ojo Samson Olumuyiwa is the founder and presiding prophet of
+            The Covenant of Peace Evangelical Mission, Ibeju-Lekki, Lagos.
+            He carries a strong prophetic and apostolic mandate to proclaim
+            God's covenant promises to this generation.
+          </p>
+          <br>
+          <p class="leader-bio">
+            Through his ministry, countless lives have been touched, families restored,
+            and the sick healed by the power of the Holy Spirit. He remains steadfast in
+            the calling God placed on his life — to build a house of peace, prayer,
+            and power in Ibeju-Lekki and beyond.
+          </p>
+          <br>
+          <p style="font-size:0.85rem; color:var(--gold-light);">
+            📞 +234 703 894 0077 &nbsp;|&nbsp; ✉️ ojosm4554@gmail.com
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    CORE VALUES
+  ============================================================ -->
+  <section class="values-section">
+    <div class="values-inner">
+      <p class="eyebrow">How We Live</p>
+      <h2 class="section-title">Our Core Values</h2>
+      <p class="section-body">
+        These values shape everything we do — how we worship, how we serve,
+        and how we love one another and our community.
+      </p>
+
+      <div class="values-grid">
+        <div class="value-card animate-1">
+          <div class="value-icon">📖</div>
+          <h3>The Word</h3>
+          <p>Scripture is our foundation. We preach, teach, and live by the undiluted Word of God.</p>
+        </div>
+        <div class="value-card animate-2">
+          <div class="value-icon">🙏</div>
+          <h3>Prayer</h3>
+          <p>We are a house of prayer. Intercession is the heartbeat of everything we do.</p>
+        </div>
+        <div class="value-card animate-3">
+          <div class="value-icon">🕊️</div>
+          <h3>The Holy Spirit</h3>
+          <p>We welcome the move of God's Spirit in every service and in every life.</p>
+        </div>
+        <div class="value-card animate-1">
+          <div class="value-icon">❤️</div>
+          <h3>Love & Unity</h3>
+          <p>We are one family in Christ — bound by love, walking together in covenant community.</p>
+        </div>
+        <div class="value-card animate-2">
+          <div class="value-icon">🌍</div>
+          <h3>Outreach</h3>
+          <p>We carry the Gospel beyond our walls — to our streets, our city, and the nations.</p>
+        </div>
+        <div class="value-card animate-3">
+          <div class="value-icon">✝️</div>
+          <h3>Covenant Faith</h3>
+          <p>We stand on God's unbreakable covenant promises — in every season of life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (same on every page) -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/CHURCH_LOGO.png" alt="COPEM Logo" class="footer-logo">
+        <h3>The Covenant of Peace<br>Evangelical Mission</h3>
+        <p>"I will make my covenant between me and you, and will multiply you exceedingly." — Genesis 17:2</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services & Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>
+          Elepete Phase 2, Baba-Adisa<br>
+          Ibeju-Lekki, Lagos, Nigeria<br><br>
+          📞 +234 703 894 0077<br>
+          ✉️ ojosm4554@gmail.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Covenant of Peace Evangelical Mission · Ibeju-Lekki, Lagos · All Rights Reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>

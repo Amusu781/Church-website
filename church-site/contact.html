@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — The Covenant of Peace Evangelical Mission</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+
+    /* ===== CONTACT LAYOUT ===== */
+    .contact-section {
+      padding: var(--section-pad);
+      background: var(--off-white);
+    }
+
+    .contact-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      /* Left column: info. Right column: form. */
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* ===== CONTACT INFO CARDS ===== */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact-card {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--wine);
+      box-shadow: 0 2px 12px rgba(13,27,62,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover { transform: translateX(4px); }
+    .contact-card:nth-child(2) { border-left-color: var(--navy); }
+    .contact-card:nth-child(3) { border-left-color: var(--gold); }
+    .contact-card:nth-child(4) { border-left-color: var(--wine-light); }
+
+    .contact-card-icon {
+      font-size: 1.6rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .contact-card-body h4 {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-card:nth-child(2) .contact-card-body h4 { color: var(--navy); }
+
+    .contact-card-body p,
+    .contact-card-body a {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* Clickable links in contact cards */
+    .contact-card-body a {
+      display: block;
+      transition: color 0.3s;
+    }
+
+    .contact-card-body a:hover { color: var(--wine); }
+
+    /* ===== WHATSAPP BUTTON ===== */
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #25D366; /* WhatsApp brand green */
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebe5c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 4px 30px rgba(13,27,62,0.08);
+      border-top: 4px solid var(--navy);
+    }
+
+    .contact-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-form-wrap p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+    }
+
+    /*
+      A form in HTML collects user input.
+      <input> = single-line text box
+      <textarea> = multi-line text box
+      <select> = dropdown menu
+      <button> = submit button
+    */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    /* <label> describes what an input is for */
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+    }
+
+    /* Styling all input types at once using a comma-separated selector */
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      background: var(--off-white);
+      /* outline: none removes the default browser blue ring */
+      outline: none;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    /* :focus = when the user clicks inside the field */
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--navy);
+      background: var(--white);
+    }
+
+    /* Two inputs side by side using grid */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-textarea {
+      resize: vertical; /* Allow vertical resizing only */
+      min-height: 120px;
+    }
+
+    /* Submit button — full width */
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--navy), var(--wine));
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.3s ease, transform 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* ===== MAP SECTION ===== */
+    .map-section {
+      padding: var(--section-pad);
+      background: var(--light-bg);
+    }
+
+    .map-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* The Google Maps embed container */
+    .map-embed {
+      margin-top: 2rem;
+      border-radius: var(--radius);
+      overflow: hidden; /* Clips the iframe to our border-radius */
+      box-shadow: 0 4px 30px rgba(13,27,62,0.1);
+      border: 1px solid var(--border);
+      height: 400px;
+    }
+
+    /* <iframe> embeds external content (like Google Maps) */
+    .map-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none; /* Remove default iframe border */
+      display: block;
+    }
+
+    /* ===== VISIT INFO STRIP ===== */
+    .visit-strip {
+      background: var(--navy);
+      padding: 50px 6%;
+    }
+
+    .visit-strip-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .visit-item h4 {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .visit-item p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    /* ===== LOGO ===== */
+    .navbar-logo {
+      height: 44px; width: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+    .footer-logo {
+      height: 55px; width: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-bottom: 0.8rem;
+      border: 2px solid rgba(201,168,76,0.3);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .contact-inner    { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row         { grid-template-columns: 1fr; }
+      .visit-strip-inner { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
+      <span class="navbar-name">The Covenant of Peace<br>Evangelical Mission</span>
+    </div>
+    <ul class="navbar-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <p class="page-hero-label animate-1">Get In Touch</p>
+    <h1 class="animate-2">Contact &<br>Find Us</h1>
+  </header>
+
+  <!-- ============================================================
+    CONTACT DETAILS + FORM
+  ============================================================ -->
+  <section class="contact-section">
+    <div class="contact-inner">
+
+      <!-- LEFT: Contact information cards -->
+      <div>
+        <p class="eyebrow">Reach Out</p>
+        <h2 class="section-title">We'd Love<br>to Hear From You</h2>
+        <p class="section-body" style="margin-bottom:2rem;">
+          Have a question, prayer request, or need directions? Reach us through
+          any of the channels below — we are always glad to help.
+        </p>
+
+        <div class="contact-info">
+
+          <!-- Address Card -->
+          <div class="contact-card animate-1">
+            <div class="contact-card-icon">📍</div>
+            <div class="contact-card-body">
+              <h4>Our Address</h4>
+              <p>
+                Elepete Phase 2, Baba-Adisa<br>
+                Ibeju-Lekki, Lagos, Nigeria
+              </p>
+            </div>
+          </div>
+
+          <!-- Phone Card -->
+          <div class="contact-card animate-2">
+            <div class="contact-card-icon">📞</div>
+            <div class="contact-card-body">
+              <h4>Phone</h4>
+              <!--
+                tel: links let mobile phones open the dialer.
+                The number must include country code, no spaces.
+              -->
+              <a href="tel:+2347038940077">+234 703 894 0077</a>
+
+              <!--
+                wa.me is WhatsApp's official link format.
+                Clicking opens a WhatsApp chat directly.
+              -->
+              <a href="https://wa.me/2347038940077"
+                 target="_blank"
+                 class="whatsapp-btn">
+                💬 Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Email Card -->
+          <div class="contact-card animate-3">
+            <div class="contact-card-icon">✉️</div>
+            <div class="contact-card-body">
+              <h4>Email</h4>
+              <!--
+                mailto: links open the user's email app
+                with the To field already filled in.
+              -->
+              <a href="mailto:ojosm4554@gmail.com">ojosm4554@gmail.com</a>
+            </div>
+          </div>
+
+          <!-- Service Times Card -->
+          <div class="contact-card animate-1">
+            <div class="contact-card-icon">🕐</div>
+            <div class="contact-card-body">
+              <h4>Sunday Service Times</h4>
+              <p>
+                Sunday School: 7:30 – 8:30 AM<br>
+                Glorious Service: 8:30 – 11:00 AM
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact form -->
+      <div class="contact-form-wrap animate-2">
+        <h3>Send Us a Message</h3>
+        <p>Fill in the form and we'll get back to you as soon as possible.</p>
+
+        <!--
+          action="#" means the form doesn't go anywhere yet.
+          To make it work for real, you'd use a service like
+          Formspree or EmailJS — we can add that later!
+        -->
+        <form action="#" method="POST">
+
+          <!-- Two inputs on the same row using grid -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <!--
+                for="fname" links this label to the input with id="fname".
+                Clicking the label focuses the input — good accessibility!
+              -->
+              <input type="text" id="fname" name="fname"
+                     class="form-input" placeholder="e.g. Emeka" required>
+              <!-- required = browser won't submit if this is empty -->
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname"
+                     class="form-input" placeholder="e.g. Adeyemi" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <!-- type="email" validates it looks like an email address -->
+            <input type="email" id="email" name="email"
+                   class="form-input" placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <!-- type="tel" shows numeric keyboard on mobile -->
+            <input type="tel" id="phone" name="phone"
+                   class="form-input" placeholder="+234 ...">
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <!--
+              <select> creates a dropdown menu.
+              Each <option> is one choice.
+              value="" is what gets sent to the server.
+            -->
+            <select id="subject" name="subject" class="form-select">
+              <option value="">— Select a subject —</option>
+              <option value="visit">Planning a Visit</option>
+              <option value="prayer">Prayer Request</option>
+              <option value="counselling">Pastoral Counselling</option>
+              <option value="general">General Enquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <!-- <textarea> is a multi-line text input -->
+            <textarea id="message" name="message"
+                      class="form-textarea"
+                      placeholder="Write your message or prayer request here..."
+                      required></textarea>
+          </div>
+
+          <!-- type="submit" makes this button submit the form -->
+          <button type="submit" class="form-submit">
+            ✝ Send Message
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+    VISIT INFO STRIP
+  ============================================================ -->
+  <div class="visit-strip">
+    <div class="visit-strip-inner">
+      <div class="visit-item">
+        <h4>📍 Location</h4>
+        <p>Elepete Phase 2, Baba-Adisa<br>Ibeju-Lekki, Lagos</p>
+      </div>
+      <div class="visit-item">
+        <h4>🕊️ Sunday Service</h4>
+        <p>Sunday School: 7:30 – 8:30 AM<br>Glorious Service: 8:30 – 11:00 AM</p>
+      </div>
+      <div class="visit-item">
+        <h4>📞 Contact</h4>
+        <p>+234 703 894 0077<br>ojosm4554@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+    MAP SECTION
+    Embedded Google Map of Ibeju-Lekki area.
+    Later you can replace the src with the exact location.
+  ============================================================ -->
+  <section class="map-section">
+    <div class="map-inner">
+      <p class="eyebrow">Find Us</p>
+      <h2 class="section-title">Our Location</h2>
+      <p class="section-body">
+        We are located at Elepete Phase 2, Baba-Adisa, Ibeju-Lekki, Lagos.
+        The map below shows the general area — ask us on WhatsApp for precise directions.
+      </p>
+
+      <!--
+        <iframe> embeds another webpage inside ours.
+        This is Google Maps embedded for Ibeju-Lekki, Lagos.
+        src= is the URL of the map to show.
+        allowfullscreen lets users expand the map.
+      -->
+      <div class="map-embed animate-1">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126820.20780403064!2d3.6453!3d6.4829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf5b6af2a6e6b%3A0x22e6cb9c7d8b5b59!2sIbeju-Lekki%2C%20Lagos!5e0!3m2!1sen!2sng!4v1699999999999"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="The Covenant of Peace Evangelical Mission — Ibeju-Lekki Lagos">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/CHURCH_LOGO.png" alt="COPEM Logo" class="footer-logo">
+        <h3>The Covenant of Peace<br>Evangelical Mission</h3>
+        <p>"I will make my covenant between me and you, and will multiply you exceedingly." — Genesis 17:2</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services & Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>
+          Elepete Phase 2, Baba-Adisa<br>
+          Ibeju-Lekki, Lagos, Nigeria<br><br>
+          📞 +234 703 894 0077<br>
+          ✉️ ojosm4554@gmail.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Covenant of Peace Evangelical Mission · Ibeju-Lekki, Lagos · All Rights Reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>

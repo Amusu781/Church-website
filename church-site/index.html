@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — The Covenant of Peace Evangelical Mission</title>
+
+  <!--
+    rel="stylesheet" links our external CSS file.
+    The browser loads styles.css and applies all
+    the rules we wrote there to this page.
+  -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!--
+    Page-specific styles go here.
+    Only the HOME page needs these rules,
+    so we keep them separate from styles.css
+  -->
+  <style>
+
+    /* ===== HERO SECTION =====
+       The full-screen banner on the home page.
+       100vh = 100% of the visible screen height.
+    */
+    .home-hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--navy) 0%, #1a0a2e 40%, var(--wine) 100%);
+      display: flex;
+      flex-direction: column;  /* Stack children vertically */
+      align-items: center;     /* Center horizontally */
+      justify-content: center; /* Center vertically */
+      text-align: center;
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Large decorative cross watermark in the background */
+    .home-hero::before {
+      content: '✝';
+      position: absolute;
+      font-size: 55vw;  /* vw = viewport width — scales with screen */
+      color: rgba(255,255,255,0.025);
+      pointer-events: none; /* Clicks pass through this element */
+      user-select: none;    /* Can't be selected/copied */
+      font-family: serif;
+    }
+
+    /* Glowing orbs — purely decorative atmosphere */
+    .hero-glow-1 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(107,30,62,0.35) 0%, transparent 65%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 65%);
+      bottom: -80px; left: -80px;
+      pointer-events: none;
+    }
+
+    /* The content sits above the decorative layers */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50px; /* Pill shape */
+      padding: 0.4rem 1.2rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge span { font-size: 0.9rem; }
+
+    /* Main church name — the biggest text on the page */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .hero-title-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 2.5rem;
+    }
+
+    /* The gold decorative border around the Bible verse */
+    .hero-verse {
+      display: inline-block;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: var(--radius);
+      padding: 1.4rem 2.5rem;
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-verse blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-verse cite {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* Two side-by-side buttons */
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap; /* Wrap on small screens */
+    }
+
+    /* Scroll indicator arrow at bottom of hero */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ===== WELCOME STRIP =====
+       A short bold statement section
+    */
+    .welcome-strip {
+      background: var(--wine);
+      padding: 50px 6%;
+      text-align: center;
+    }
+
+    .welcome-strip p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.9);
+      max-width: 750px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .welcome-strip strong {
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    /* ===== QUICK INFO CARDS ===== */
+    .quickinfo {
+      padding: var(--section-pad);
+      background: var(--light-bg);
+    }
+
+    /* CSS Grid: 3 equal columns */
+    .quickinfo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 4px solid var(--wine);
+      /* box-shadow adds a subtle drop shadow */
+      box-shadow: 0 2px 20px rgba(13,27,62,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(13,27,62,0.12);
+    }
+
+    .info-card:nth-child(2) { border-top-color: var(--navy); }
+    .info-card:nth-child(3) { border-top-color: var(--gold); }
+    /* nth-child targets specific children by position */
+
+    .info-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .info-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .info-card a {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--wine);
+      transition: color 0.3s;
+    }
+
+    .info-card a:hover { color: var(--navy); }
+
+    /* ===== PROPHET SECTION ===== */
+    .prophet-section {
+      padding: var(--section-pad);
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .prophet-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    /* The styled placeholder where a photo would go */
+    .prophet-image-wrap {
+      position: relative;
+    }
+
+    .prophet-image-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      /*
+        The photo has a transparent background so we use a
+        subtle gradient that shows through — making the prophet
+        appear to naturally emerge from the dark section.
+      */
+      background: linear-gradient(180deg, rgba(22,37,80,0.3) 0%, rgba(107,30,62,0.5) 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      border: 1px solid rgba(201,168,76,0.2);
+      overflow: hidden;
+    }
+
+    /* Gold accent border that sits slightly offset */
+    .prophet-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -12px;    /* inset is shorthand for top/right/bottom/left */
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: calc(var(--radius) + 6px);
+      pointer-events: none;
+    }
+
+    .prophet-label {
+      display: inline-block;
+      background: var(--wine);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .prophet-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .prophet-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      border-left: 3px solid var(--wine);
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .prophet-body {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.9;
+    }
+
+    /* ===== CALL TO ACTION BANNER ===== */
+    .cta-banner {
+      padding: 70px 6%;
+      background: linear-gradient(135deg, var(--wine) 0%, var(--navy) 100%);
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-banner p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== LOGO & PROPHET PHOTO STYLES ===== */
+
+    /*
+      The logo image in the navbar.
+      We set a fixed height; width adjusts automatically.
+      object-fit: contain = keeps full logo visible without cropping.
+    */
+    .navbar-logo {
+      height: 44px;
+      width: 44px;
+      object-fit: contain;
+      border-radius: 50%; /* Makes it circular */
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+
+    /*
+      The prophet's photo fills the portrait box.
+      object-fit: cover = fills the area, crops if needed (like a background).
+      object-position: top = keeps the face visible when cropped.
+    */
+    .prophet-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--radius);
+      display: block;
+      /*
+        image-rendering: high-quality tells the browser to use
+        the best possible scaling method — keeps it sharp.
+      */
+      image-rendering: high-quality;
+    }
+
+    /* Logo in the footer — slightly larger */
+    .footer-logo {
+      height: 55px;
+      width: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-bottom: 0.8rem;
+      border: 2px solid rgba(201,168,76,0.3);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .quickinfo-grid { grid-template-columns: 1fr; }
+      .prophet-inner  { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+    NAVIGATION
+    The <nav> tag is semantic HTML — it tells browsers and
+    screen readers "this is the navigation menu."
+    Each <a href="page.html"> links to another HTML file.
+  ============================================================ -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <!--
+        <img> tag displays an image.
+        src="images/CHURCH_LOGO.png" is the PATH to the image file.
+        Since our images/ folder is next to index.html, we write images/filename.
+        alt= describes the image for screen readers and if image fails to load.
+      -->
+      <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
+      <span class="navbar-name">The Covenant of Peace<br>Evangelical Mission</span>
+    </div>
+    <ul class="navbar-links">
+      <!-- class="active" highlights the current page link -->
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+    HERO SECTION
+    The first thing visitors see. Full screen height (100vh).
+  ============================================================ -->
+  <section class="home-hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="hero-content">
+
+      <!-- Animated badge -->
+      <div class="hero-badge animate-1">
+        <span>✝</span> Welcome to Our Church
+      </div>
+
+      <!-- Main heading — split for visual weight -->
+      <h1 class="hero-title animate-2">
+        The Covenant of Peace
+      </h1>
+      <p class="hero-title-sub animate-2">
+        Evangelical Mission
+      </p>
+
+      <!-- Bible verse display -->
+      <div class="hero-verse animate-3">
+        <blockquote>
+          "I will make my covenant between me and you,<br>
+          and will multiply you exceedingly."
+        </blockquote>
+        <cite>— Genesis 17:2 (KJV)</cite>
+      </div>
+
+      <!-- Call to action buttons -->
+      <div class="hero-actions animate-4">
+        <!--
+          href="services.html" links to the Services page.
+          When clicked, the browser loads that file.
+        -->
+        <a href="services.html" class="btn btn--wine">View Services</a>
+        <a href="contact.html" class="btn btn--outline-gold">Find Us</a>
+      </div>
+
+    </div>
+
+    <!-- Scroll hint at the bottom -->
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    WELCOME STRIP
+    A short inspiring message beneath the hero.
+  ============================================================ -->
+  <div class="welcome-strip">
+    <p>
+      A community rooted in <strong>God's everlasting covenant</strong> —
+      where every soul is welcomed, every prayer is heard, and every life is transformed
+      by the power of the Holy Spirit.
+    </p>
+  </div>
+
+  <!-- ============================================================
+    QUICK INFO CARDS
+    Three at-a-glance cards linking to deeper pages.
+  ============================================================ -->
+  <section class="quickinfo">
+    <div class="quickinfo-grid">
+
+      <!-- Card 1: Service Times -->
+      <div class="info-card animate-1">
+        <div class="info-icon">🕊️</div>
+        <h3>Sunday Services</h3>
+        <p>
+          Sunday School: 7:30 – 8:30 AM<br>
+          Glorious Service: 8:30 – 11:00 AM<br>
+          <em>Join us every Sunday!</em>
+        </p>
+        <a href="services.html">Full Schedule →</a>
+      </div>
+
+      <!-- Card 2: Location -->
+      <div class="info-card animate-2">
+        <div class="info-icon">📍</div>
+        <h3>Find Us</h3>
+        <p>
+          Elepete Phase 2, Baba-Adisa<br>
+          Ibeju-Lekki, Lagos, Nigeria<br>
+          <em>You are always welcome here.</em>
+        </p>
+        <a href="contact.html">Get Directions →</a>
+      </div>
+
+      <!-- Card 3: Contact -->
+      <div class="info-card animate-3">
+        <div class="info-icon">📞</div>
+        <h3>Reach Us</h3>
+        <p>
+          +234 703 894 0077<br>
+          ojosm4554@gmail.com<br>
+          <em>We'd love to hear from you.</em>
+        </p>
+        <a href="contact.html">Contact Us →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+    PROPHET SECTION
+    Features the church leader with a styled layout.
+  ============================================================ -->
+  <section class="prophet-section">
+    <div class="prophet-inner">
+
+      <!-- Left: portrait placeholder -->
+      <div class="prophet-image-wrap animate-1">
+        <!--
+          object-fit: cover in CSS makes the image fill the box
+          without stretching — like a background-size: cover.
+        -->
+        <img src="images/PROPHET_OJO.png" alt="Prophet Ojo Samson Olumuyiwa" class="prophet-photo">
+      </div>
+
+      <!-- Right: text content -->
+      <div class="animate-2">
+        <span class="prophet-label">Our Prophet</span>
+        <h2 class="prophet-name">Prophet Ojo<br>Samson Olumuyiwa</h2>
+
+        <blockquote class="prophet-quote">
+          "God's covenant is not a promise He made once —
+          it is a living reality He renews with every generation."
+        </blockquote>
+
+        <p class="prophet-body">
+          Under the anointed leadership of Prophet Ojo Samson Olumuyiwa,
+          the Covenant of Peace Evangelical Mission has grown into a vibrant
+          community of faith, prayer, and transformation in Ibeju-Lekki, Lagos.
+          Prophet Ojo ministers with a deep revelation of God's Word and a burning
+          passion to see souls saved and families restored by the power of the Holy Spirit.
+        </p>
+
+        <br>
+        <a href="about.html" class="btn btn--outline-gold">Learn More About Us</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+    CALL TO ACTION BANNER
+    Encourages visitors to come to church or get in touch.
+  ============================================================ -->
+  <section class="cta-banner">
+    <h2>Come Worship With Us</h2>
+    <p>Every service is an opportunity to encounter God's presence. You are welcome — just as you are.</p>
+    <div class="cta-actions">
+      <a href="services.html" class="btn btn--outline-white">View All Services</a>
+      <a href="contact.html" class="btn btn--outline-gold">Get In Touch</a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    FOOTER
+    Shared across all pages.
+  ============================================================ -->
+  <footer class="footer">
+    <div class="footer-grid">
+
+      <!-- Column 1: Brand -->
+      <div class="footer-brand">
+        <img src="images/CHURCH_LOGO.png" alt="COPEM Logo" class="footer-logo">
+        <h3>The Covenant of Peace<br>Evangelical Mission</h3>
+        <p>"I will make my covenant between me and you, and will multiply you exceedingly." — Genesis 17:2</p>
+      </div>
+
+      <!-- Column 2: Quick links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services & Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>
+          Elepete Phase 2, Baba-Adisa<br>
+          Ibeju-Lekki, Lagos, Nigeria<br><br>
+          📞 +234 703 894 0077<br>
+          ✉️ ojosm4554@gmail.com
+        </p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 The Covenant of Peace Evangelical Mission · Ibeju-Lekki, Lagos · All Rights Reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>

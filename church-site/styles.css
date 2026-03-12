@@ -1,0 +1,521 @@
+/* ================================================
+   STYLES.CSS — Shared styles for all pages
+   The Covenant of Peace Evangelical Mission
+   ================================================
+
+   HOW CSS WORKS:
+   Every rule follows this pattern:
+     selector { property: value; }
+   The selector targets an HTML element.
+   The property changes one thing about its look.
+*/
+
+/* ---- GOOGLE FONTS IMPORT ----
+   We load two fonts from Google:
+   - Playfair Display: elegant serif for headings
+   - DM Sans: clean and readable for body text
+*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ---- CSS CUSTOM PROPERTIES (Variables) ----
+   :root means "the entire document"
+   Variables start with --
+   We reference them later with var(--name)
+   Change a color here = changes everywhere!
+*/
+:root {
+  /* === BRAND COLORS === */
+  --navy:        #0d1b3e;       /* Deep navy blue — primary */
+  --navy-mid:    #162550;       /* Slightly lighter navy */
+  --navy-light:  #1e3272;       /* For hover states */
+  --wine:        #6b1e3e;       /* Rich wine/burgundy */
+  --wine-light:  #8b2a52;       /* Lighter wine for accents */
+  --wine-glow:   rgba(107,30,62,0.15); /* Transparent wine for glows */
+  --gold:        #c9a84c;       /* Gold accent */
+  --gold-light:  #e8d5a3;       /* Pale gold */
+
+  /* === NEUTRALS === */
+  --white:       #ffffff;
+  --off-white:   #f8f6f3;
+  --light-bg:    #f0eef8;       /* Faint blue-tinted background */
+  --text-dark:   #1a1a2e;
+  --text-muted:  #6b6880;
+  --border:      rgba(13, 27, 62, 0.12);
+
+  /* === SPACING & SHAPE === */
+  --radius:      6px;
+  --section-pad: 90px 6%;
+}
+
+/* ---- RESET ----
+   Browsers add default margins and paddings.
+   We zero them out so WE control all spacing.
+   box-sizing: border-box means padding is
+   included INSIDE the element's width.
+*/
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---- BASE STYLES ---- */
+html {
+  scroll-behavior: smooth; /* Smooth scrolling between anchors */
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--off-white);
+  color: var(--text-dark);
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased; /* Crisper text on Mac */
+}
+
+img {
+  max-width: 100%; /* Images never overflow their container */
+  display: block;
+}
+
+a {
+  color: inherit;        /* Links use parent color, not default blue */
+  text-decoration: none; /* No underlines by default */
+}
+
+/* ================================================
+   NAVIGATION
+   position: fixed = stays at top while scrolling
+   z-index: 1000 = sits above all other elements
+   ================================================ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 72px;
+  background: rgba(13, 27, 62, 0.97);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-cross {
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+
+.navbar-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: var(--white);
+  line-height: 1.3;
+  max-width: 200px;
+}
+
+/* nav links list — flex means side by side */
+.navbar-links {
+  display: flex;
+  list-style: none; /* removes bullet points */
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.navbar-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  /* transition = smooth change over 0.3 seconds */
+  transition: color 0.3s ease;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* The underline that slides in on hover */
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0;              /* starts with zero width */
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease; /* animate to full width */
+}
+
+/* :hover = applies when mouse is over the element */
+.navbar-links a:hover {
+  color: var(--white);
+}
+
+.navbar-links a:hover::after {
+  width: 100%; /* underline slides to full width */
+}
+
+/* The currently active page link */
+.navbar-links a.active {
+  color: var(--gold);
+}
+
+.navbar-links a.active::after {
+  width: 100%;
+}
+
+/* ================================================
+   PAGE HERO (used on every page except home)
+   ================================================ */
+.page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--wine) 100%);
+  padding: 140px 6% 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative cross watermark in background */
+.page-hero::before {
+  content: '✝';
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18rem;
+  color: rgba(255,255,255,0.04);
+  font-family: serif;
+  pointer-events: none;
+}
+
+.page-hero-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* The horizontal line before the label text */
+.page-hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold-light);
+}
+
+.page-hero h1 {
+  font-family: 'Playfair Display', serif;
+  /* clamp(min, preferred, max) = responsive font size */
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  max-width: 600px;
+}
+
+/* ================================================
+   REUSABLE SECTION COMPONENTS
+   ================================================ */
+
+/* Generic section padding */
+.section {
+  padding: var(--section-pad);
+}
+
+.section--light {
+  background-color: var(--off-white);
+}
+
+.section--mid {
+  background-color: var(--light-bg);
+}
+
+.section--dark {
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+.section--wine {
+  background-color: var(--wine);
+  color: var(--white);
+}
+
+/* Max-width container to keep content centered */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* The small label above section titles */
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--wine);
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--wine);
+  border-radius: 2px;
+}
+
+/* When eyebrow is inside a dark section, use gold */
+.section--dark .eyebrow,
+.section--wine .eyebrow {
+  color: var(--gold-light);
+}
+
+.section--dark .eyebrow::before,
+.section--wine .eyebrow::before {
+  background: var(--gold-light);
+}
+
+/* Section headings */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.section--dark .section-title,
+.section--wine .section-title {
+  color: var(--white);
+}
+
+.section-body {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 580px;
+  line-height: 1.9;
+}
+
+.section--dark .section-body,
+.section--wine .section-body {
+  color: rgba(255,255,255,0.7);
+}
+
+/* ================================================
+   BUTTONS
+   ================================================ */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+/* Primary = navy filled button */
+.btn--primary {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn--primary:hover {
+  background: var(--navy-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13,27,62,0.25);
+}
+
+/* Wine = wine/burgundy button */
+.btn--wine {
+  background: var(--wine);
+  color: var(--white);
+}
+
+.btn--wine:hover {
+  background: var(--wine-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(107,30,62,0.3);
+}
+
+/* Gold outlined button */
+.btn--outline-gold {
+  background: transparent;
+  color: var(--gold-light);
+  border: 1px solid var(--gold);
+}
+
+.btn--outline-gold:hover {
+  background: var(--gold);
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+
+/* White outlined button */
+.btn--outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.btn--outline-white:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ================================================
+   DIVIDER — Decorative gold cross divider
+   ================================================ */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.55);
+  padding: 50px 6% 30px;
+  border-top: 3px solid var(--wine);
+}
+
+.footer-grid {
+  display: grid;
+  /* repeat(3, 1fr) = three equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  max-width: 1120px;
+  margin: 0 auto 2.5rem;
+}
+
+.footer-brand h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 0.8rem;
+}
+
+.footer-brand p {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.footer-col h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-col ul li a {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: var(--gold-light);
+}
+
+.footer-col p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ================================================
+   ANIMATIONS — reusable fade-in classes
+   ================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-1 { animation: fadeInUp 0.7s ease 0.1s both; }
+.animate-2 { animation: fadeInUp 0.7s ease 0.25s both; }
+.animate-3 { animation: fadeInUp 0.7s ease 0.4s both; }
+.animate-4 { animation: fadeInUp 0.7s ease 0.55s both; }
+.animate-5 { animation: fadeInUp 0.7s ease 0.7s both; }
+
+/* ================================================
+   MOBILE RESPONSIVE
+   @media queries apply styles at specific screen widths.
+   max-width: 768px targets phones and small tablets.
+   ================================================ */
+@media (max-width: 768px) {
+  :root {
+    --section-pad: 60px 5%;
+  }
+
+  .navbar-links {
+    display: none; /* Hide links on mobile — would need a hamburger menu */
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr; /* Stack into one column */
+    gap: 2rem;
+  }
+}

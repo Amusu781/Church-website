@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — The Covenant of Peace Evangelical Mission</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+
+    /* ===== WEEKLY SCHEDULE ===== */
+    .schedule-section {
+      padding: var(--section-pad);
+      background: var(--off-white);
+    }
+
+    .schedule-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /*
+      The schedule is a vertical list of "rows".
+      Each row is a flex container: day | details | time
+    */
+    .schedule-list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column; /* Stack rows vertically */
+      gap: 1rem;
+    }
+
+    .schedule-row {
+      display: grid;
+      /* 3 columns: day tag, service info, time badge */
+      grid-template-columns: 140px 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.8rem 2rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--wine);
+      box-shadow: 0 2px 12px rgba(13,27,62,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .schedule-row:hover {
+      transform: translateX(4px);
+      box-shadow: 0 6px 24px rgba(13,27,62,0.1);
+    }
+
+    /* Alternate border colors for visual variety */
+    .schedule-row:nth-child(2) { border-left-color: var(--navy); }
+    .schedule-row:nth-child(3) { border-left-color: var(--gold); }
+    .schedule-row:nth-child(4) { border-left-color: var(--wine); }
+    .schedule-row:nth-child(5) { border-left-color: var(--navy); }
+    .schedule-row:nth-child(6) { border-left-color: var(--wine-light); }
+
+    /* The day pill/badge on the left */
+    .schedule-day {
+      text-align: center;
+    }
+
+    .day-name {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wine);
+      background: var(--wine-glow);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      margin-bottom: 0.2rem;
+    }
+
+    .schedule-row:nth-child(even) .day-name {
+      color: var(--navy);
+      background: rgba(13,27,62,0.07);
+    }
+
+    /* Service name and description */
+    .schedule-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+
+    .schedule-info p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* The time badge on the right */
+    .schedule-time {
+      text-align: right;
+      white-space: nowrap; /* Prevent time from wrapping to next line */
+    }
+
+    .time-badge {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Special badge for Sunday — more prominent */
+    .time-badge--sunday {
+      background: linear-gradient(135deg, var(--wine), var(--navy));
+      font-size: 0.82rem;
+    }
+
+    .time-badge--gold {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* ===== SPECIAL SUNDAY HIGHLIGHT ===== */
+    .sunday-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--wine) 100%);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sunday-card::before {
+      content: '✝';
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 8rem;
+      color: rgba(255,255,255,0.05);
+      font-family: serif;
+    }
+
+    .sunday-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+    }
+
+    /* Flex row of time blocks inside the Sunday card */
+    .sunday-times {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .sunday-time-block {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 0.8rem 1.2rem;
+    }
+
+    .sunday-time-block .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.2rem;
+    }
+
+    .sunday-time-block .time {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    /* ===== WHAT TO EXPECT SECTION ===== */
+    .expect-section {
+      padding: var(--section-pad);
+      background: var(--light-bg);
+    }
+
+    .expect-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .expect-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .expect-card {
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--wine);
+      transition: transform 0.3s ease;
+    }
+
+    .expect-card:nth-child(even) { border-top-color: var(--navy); }
+    .expect-card:nth-child(3)    { border-top-color: var(--gold);  }
+
+    .expect-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .expect-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--wine);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .expect-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .expect-card p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ===== CTA ===== */
+    .services-cta {
+      padding: 70px 6%;
+      background: var(--wine);
+      text-align: center;
+    }
+
+    .services-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .services-cta p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.92rem;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ===== LOGO ===== */
+    .navbar-logo {
+      height: 44px; width: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+    .footer-logo {
+      height: 55px; width: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-bottom: 0.8rem;
+      border: 2px solid rgba(201,168,76,0.3);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .schedule-row {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .schedule-time { text-align: left; }
+      .expect-grid   { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
+      <span class="navbar-name">The Covenant of Peace<br>Evangelical Mission</span>
+    </div>
+    <ul class="navbar-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <p class="page-hero-label animate-1">Gather With Us</p>
+    <h1 class="animate-2">Services &<br>Weekly Programme</h1>
+  </header>
+
+  <!-- ============================================================
+    WEEKLY SCHEDULE
+  ============================================================ -->
+  <section class="schedule-section">
+    <div class="schedule-inner">
+
+      <p class="eyebrow">Every Week</p>
+      <h2 class="section-title">Weekly Service Schedule</h2>
+      <p class="section-body">
+        We gather throughout the week to worship, study, pray, and grow together.
+        All services are open to everyone — come as you are.
+      </p>
+
+      <!-- Sunday is shown as a special highlighted card first -->
+      <div class="schedule-list" style="margin-top:2rem;">
+
+        <!-- SUNDAY SPECIAL CARD -->
+        <div class="sunday-card animate-1">
+          <h3>✝ Sunday — The Lord's Day</h3>
+          <div class="sunday-times">
+            <div class="sunday-time-block">
+              <div class="label">Sunday School</div>
+              <div class="time">7:30 AM – 8:30 AM</div>
+            </div>
+            <div class="sunday-time-block">
+              <div class="label">Glorious Service</div>
+              <div class="time">8:30 AM – 11:00 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MONDAY -->
+        <div class="schedule-row animate-2">
+          <div class="schedule-day">
+            <span class="day-name">Monday</span>
+          </div>
+          <div class="schedule-info">
+            <h3>Bible Study</h3>
+            <p>In-depth study of God's Word. Come ready to learn and grow in Scripture.</p>
+          </div>
+          <div class="schedule-time">
+            <span class="time-badge">6:00 – 7:00 PM</span>
+          </div>
+        </div>
+
+        <!-- TUESDAY -->
+        <div class="schedule-row animate-3">
+          <div class="schedule-day">
+            <span class="day-name">Tuesday</span>
+          </div>
+          <div class="schedule-info">
+            <h3>Pregnant Women's Fellowship</h3>
+            <p>A dedicated time of prayer, teaching, and support for expectant mothers.</p>
+          </div>
+          <div class="schedule-time">
+            <span class="time-badge">9:00 – 11:00 AM</span>
+          </div>
+        </div>
+
+        <!-- THURSDAY -->
+        <div class="schedule-row animate-1">
+          <div class="schedule-day">
+            <span class="day-name">Thursday</span>
+          </div>
+          <div class="schedule-info">
+            <h3>Wonderful Hour</h3>
+            <p>An evening of praise, worship, testimonies, and the move of the Holy Spirit.</p>
+          </div>
+          <div class="schedule-time">
+            <span class="time-badge">6:00 – 8:00 PM</span>
+          </div>
+        </div>
+
+        <!-- LAST FRIDAY -->
+        <div class="schedule-row animate-2">
+          <div class="schedule-day">
+            <span class="day-name">Last Friday</span>
+          </div>
+          <div class="schedule-info">
+            <h3>General Vigil</h3>
+            <p>Our monthly all-night prayer and worship service — a powerful time of intercession and encounter.</p>
+          </div>
+          <div class="schedule-time">
+            <span class="time-badge time-badge--gold">11:00 PM – 3:00 AM</span>
+          </div>
+        </div>
+
+        <!-- SATURDAY -->
+        <div class="schedule-row animate-3">
+          <div class="schedule-day">
+            <span class="day-name">Saturday</span>
+          </div>
+          <div class="schedule-info">
+            <h3>Choir Practice & Workers' Meeting</h3>
+            <p>
+              Choir rehearsal at 4:00 PM &nbsp;·&nbsp; Workers/leaders meeting at 6:00 PM
+            </p>
+          </div>
+          <div class="schedule-time">
+            <span class="time-badge">From 4:00 PM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    WHAT TO EXPECT
+  ============================================================ -->
+  <section class="expect-section">
+    <div class="expect-inner">
+      <p class="eyebrow">First Time?</p>
+      <h2 class="section-title">What to Expect</h2>
+      <p class="section-body">
+        Whether it's your first time in church or you're returning to faith,
+        here's what you'll find when you walk through our doors.
+      </p>
+
+      <div class="expect-grid">
+        <div class="expect-card animate-1">
+          <div class="expect-number">01</div>
+          <h3>Warm Welcome</h3>
+          <p>Our ushers and members will receive you with open arms. You belong here from the moment you arrive.</p>
+        </div>
+        <div class="expect-card animate-2">
+          <div class="expect-number">02</div>
+          <h3>Anointed Worship</h3>
+          <p>Our choir and music team lead Spirit-filled praise and worship that ushers you into God's presence.</p>
+        </div>
+        <div class="expect-card animate-3">
+          <div class="expect-number">03</div>
+          <h3>The Word of God</h3>
+          <p>Every service features powerful, practical, Bible-based preaching under the anointing of the Holy Spirit.</p>
+        </div>
+        <div class="expect-card animate-1">
+          <div class="expect-number">04</div>
+          <h3>Prayer Ministry</h3>
+          <p>We believe in the power of prayer. Come with your needs — our prayer team is always ready to agree with you.</p>
+        </div>
+        <div class="expect-card animate-2">
+          <div class="expect-number">05</div>
+          <h3>Friendly Community</h3>
+          <p>We are a close-knit family. You'll leave not just blessed but connected to people who truly care.</p>
+        </div>
+        <div class="expect-card animate-3">
+          <div class="expect-number">06</div>
+          <h3>Come As You Are</h3>
+          <p>No dress code. No judgement. Just come. God's love is for everyone — and so is our church.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="services-cta">
+    <h2>Ready to Join Us?</h2>
+    <p>Our doors are always open. Come experience God's covenant peace for yourself.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn--outline-white">Get Directions</a>
+      <a href="contact.html" class="btn btn--outline-gold">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/CHURCH_LOGO.png" alt="COPEM Logo" class="footer-logo">
+        <h3>The Covenant of Peace<br>Evangelical Mission</h3>
+        <p>"I will make my covenant between me and you, and will multiply you exceedingly." — Genesis 17:2</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services & Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>
+          Elepete Phase 2, Baba-Adisa<br>
+          Ibeju-Lekki, Lagos, Nigeria<br><br>
+          📞 +234 703 894 0077<br>
+          ✉️ ojosm4554@gmail.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Covenant of Peace Evangelical Mission · Ibeju-Lekki, Lagos · All Rights Reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>
