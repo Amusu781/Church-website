@@ -9,7 +9,6 @@
 
   <style>
 
-    /* ===== WEEKLY SCHEDULE ===== */
     .schedule-section {
       padding: var(--section-pad);
       background: var(--off-white);
@@ -20,20 +19,15 @@
       margin: 0 auto;
     }
 
-    /*
-      The schedule is a vertical list of "rows".
-      Each row is a flex container: day | details | time
-    */
     .schedule-list {
       margin-top: 3rem;
       display: flex;
-      flex-direction: column; /* Stack rows vertically */
+      flex-direction: column;
       gap: 1rem;
     }
 
     .schedule-row {
       display: grid;
-      /* 3 columns: day tag, service info, time badge */
       grid-template-columns: 140px 1fr auto;
       align-items: center;
       gap: 2rem;
@@ -50,14 +44,12 @@
       box-shadow: 0 6px 24px rgba(13,27,62,0.1);
     }
 
-    /* Alternate border colors for visual variety */
     .schedule-row:nth-child(2) { border-left-color: var(--navy); }
     .schedule-row:nth-child(3) { border-left-color: var(--gold); }
     .schedule-row:nth-child(4) { border-left-color: var(--wine); }
     .schedule-row:nth-child(5) { border-left-color: var(--navy); }
     .schedule-row:nth-child(6) { border-left-color: var(--wine-light); }
 
-    /* The day pill/badge on the left */
     .schedule-day {
       text-align: center;
     }
@@ -80,7 +72,6 @@
       background: rgba(13,27,62,0.07);
     }
 
-    /* Service name and description */
     .schedule-info h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
@@ -93,10 +84,9 @@
       color: var(--text-muted);
     }
 
-    /* The time badge on the right */
     .schedule-time {
       text-align: right;
-      white-space: nowrap; /* Prevent time from wrapping to next line */
+      white-space: nowrap; 
     }
 
     .time-badge {
@@ -110,7 +100,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* Special badge for Sunday — more prominent */
     .time-badge--sunday {
       background: linear-gradient(135deg, var(--wine), var(--navy));
       font-size: 0.82rem;
@@ -121,7 +110,6 @@
       color: var(--navy);
     }
 
-    /* ===== SPECIAL SUNDAY HIGHLIGHT ===== */
     .sunday-card {
       background: linear-gradient(135deg, var(--navy) 0%, var(--wine) 100%);
       color: var(--white);
@@ -150,7 +138,6 @@
       margin-bottom: 1rem;
     }
 
-    /* Flex row of time blocks inside the Sunday card */
     .sunday-times {
       display: flex;
       gap: 1.5rem;
@@ -178,7 +165,6 @@
       color: var(--white);
     }
 
-    /* ===== WHAT TO EXPECT SECTION ===== */
     .expect-section {
       padding: var(--section-pad);
       background: var(--light-bg);
@@ -255,7 +241,6 @@
       margin: 0 auto 2rem;
     }
 
-    /* ===== LOGO ===== */
     .navbar-logo {
       height: 44px; width: 44px;
       object-fit: contain;
@@ -299,15 +284,11 @@
     </ul>
   </nav>
 
-  <!-- PAGE HERO -->
   <header class="page-hero">
     <p class="page-hero-label animate-1">Gather With Us</p>
     <h1 class="animate-2">Services &<br>Weekly Programme</h1>
   </header>
 
-  <!-- ============================================================
-    WEEKLY SCHEDULE
-  ============================================================ -->
   <section class="schedule-section">
     <div class="schedule-inner">
 
@@ -318,10 +299,8 @@
         All services are open to everyone — come as you are.
       </p>
 
-      <!-- Sunday is shown as a special highlighted card first -->
       <div class="schedule-list" style="margin-top:2rem;">
 
-        <!-- SUNDAY SPECIAL CARD -->
         <div class="sunday-card animate-1">
           <h3>✝ Sunday — The Lord's Day</h3>
           <div class="sunday-times">
@@ -336,7 +315,6 @@
           </div>
         </div>
 
-        <!-- MONDAY -->
         <div class="schedule-row animate-2">
           <div class="schedule-day">
             <span class="day-name">Monday</span>
@@ -350,7 +328,6 @@
           </div>
         </div>
 
-        <!-- TUESDAY -->
         <div class="schedule-row animate-3">
           <div class="schedule-day">
             <span class="day-name">Tuesday</span>
@@ -364,7 +341,6 @@
           </div>
         </div>
 
-        <!-- THURSDAY -->
         <div class="schedule-row animate-1">
           <div class="schedule-day">
             <span class="day-name">Thursday</span>
@@ -412,9 +388,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    WHAT TO EXPECT
-  ============================================================ -->
   <section class="expect-section">
     <div class="expect-inner">
       <p class="eyebrow">First Time?</p>
@@ -460,7 +433,7 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CALL TO ACTION -->
   <section class="services-cta">
     <h2>Ready to Join Us?</h2>
     <p>Our doors are always open. Come experience God's covenant peace for yourself.</p>

@@ -9,7 +9,6 @@
 
   <style>
 
-    /* ===== CONTACT LAYOUT ===== */
     .contact-section {
       padding: var(--section-pad);
       background: var(--off-white);
@@ -19,13 +18,11 @@
       max-width: 1120px;
       margin: 0 auto;
       display: grid;
-      /* Left column: info. Right column: form. */
       grid-template-columns: 1fr 1.1fr;
       gap: 5rem;
       align-items: start;
     }
 
-    /* ===== CONTACT INFO CARDS ===== */
     .contact-info {
       display: flex;
       flex-direction: column;
@@ -73,7 +70,6 @@
       line-height: 1.7;
     }
 
-    /* Clickable links in contact cards */
     .contact-card-body a {
       display: block;
       transition: color 0.3s;
@@ -81,7 +77,6 @@
 
     .contact-card-body a:hover { color: var(--wine); }
 
-    /* ===== WHATSAPP BUTTON ===== */
     .whatsapp-btn {
       display: inline-flex;
       align-items: center;
@@ -125,13 +120,6 @@
       margin-bottom: 1.8rem;
     }
 
-    /*
-      A form in HTML collects user input.
-      <input> = single-line text box
-      <textarea> = multi-line text box
-      <select> = dropdown menu
-      <button> = submit button
-    */
     .form-group {
       display: flex;
       flex-direction: column;
@@ -139,7 +127,6 @@
       margin-bottom: 1.1rem;
     }
 
-    /* <label> describes what an input is for */
     .form-group label {
       font-size: 0.75rem;
       font-weight: 600;
@@ -160,12 +147,10 @@
       font-size: 0.88rem;
       color: var(--text-dark);
       background: var(--off-white);
-      /* outline: none removes the default browser blue ring */
       outline: none;
       transition: border-color 0.3s ease, background 0.3s ease;
     }
 
-    /* :focus = when the user clicks inside the field */
     .form-input:focus,
     .form-textarea:focus,
     .form-select:focus {
@@ -185,7 +170,6 @@
       min-height: 120px;
     }
 
-    /* Submit button — full width */
     .form-submit {
       width: 100%;
       padding: 1rem;
@@ -223,21 +207,19 @@
     .map-embed {
       margin-top: 2rem;
       border-radius: var(--radius);
-      overflow: hidden; /* Clips the iframe to our border-radius */
+      overflow: hidden; 
       box-shadow: 0 4px 30px rgba(13,27,62,0.1);
       border: 1px solid var(--border);
       height: 400px;
     }
 
-    /* <iframe> embeds external content (like Google Maps) */
     .map-embed iframe {
       width: 100%;
       height: 100%;
-      border: none; /* Remove default iframe border */
+      border: none; 
       display: block;
     }
 
-    /* ===== VISIT INFO STRIP ===== */
     .visit-strip {
       background: var(--navy);
       padding: 50px 6%;
@@ -267,7 +249,6 @@
       line-height: 1.7;
     }
 
-    /* ===== LOGO ===== */
     .navbar-logo {
       height: 44px; width: 44px;
       object-fit: contain;
@@ -294,7 +275,6 @@
 
 <body>
 
-  <!-- NAVIGATION -->
   <nav class="navbar">
     <div class="navbar-brand">
       <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
@@ -308,19 +288,15 @@
     </ul>
   </nav>
 
-  <!-- PAGE HERO -->
   <header class="page-hero">
     <p class="page-hero-label animate-1">Get In Touch</p>
     <h1 class="animate-2">Contact &<br>Find Us</h1>
   </header>
 
-  <!-- ============================================================
-    CONTACT DETAILS + FORM
-  ============================================================ -->
   <section class="contact-section">
     <div class="contact-inner">
 
-      <!-- LEFT: Contact information cards -->
+      
       <div>
         <p class="eyebrow">Reach Out</p>
         <h2 class="section-title">We'd Love<br>to Hear From You</h2>
@@ -343,21 +319,13 @@
             </div>
           </div>
 
-          <!-- Phone Card -->
           <div class="contact-card animate-2">
             <div class="contact-card-icon">📞</div>
             <div class="contact-card-body">
               <h4>Phone</h4>
-              <!--
-                tel: links let mobile phones open the dialer.
-                The number must include country code, no spaces.
-              -->
+            
               <a href="tel:+2347038940077">+234 703 894 0077</a>
 
-              <!--
-                wa.me is WhatsApp's official link format.
-                Clicking opens a WhatsApp chat directly.
-              -->
               <a href="https://wa.me/2347038940077"
                  target="_blank"
                  class="whatsapp-btn">
@@ -366,15 +334,11 @@
             </div>
           </div>
 
-          <!-- Email Card -->
           <div class="contact-card animate-3">
             <div class="contact-card-icon">✉️</div>
             <div class="contact-card-body">
               <h4>Email</h4>
-              <!--
-                mailto: links open the user's email app
-                with the To field already filled in.
-              -->
+              
               <a href="mailto:ojosm4554@gmail.com">ojosm4554@gmail.com</a>
             </div>
           </div>
@@ -399,21 +363,12 @@
         <h3>Send Us a Message</h3>
         <p>Fill in the form and we'll get back to you as soon as possible.</p>
 
-        <!--
-          action="#" means the form doesn't go anywhere yet.
-          To make it work for real, you'd use a service like
-          Formspree or EmailJS — we can add that later!
-        -->
         <form action="#" method="POST">
 
-          <!-- Two inputs on the same row using grid -->
           <div class="form-row">
             <div class="form-group">
               <label for="fname">First Name</label>
-              <!--
-                for="fname" links this label to the input with id="fname".
-                Clicking the label focuses the input — good accessibility!
-              -->
+              
               <input type="text" id="fname" name="fname"
                      class="form-input" placeholder="e.g. Emeka" required>
               <!-- required = browser won't submit if this is empty -->
@@ -427,25 +382,19 @@
 
           <div class="form-group">
             <label for="email">Email Address</label>
-            <!-- type="email" validates it looks like an email address -->
             <input type="email" id="email" name="email"
                    class="form-input" placeholder="your@email.com">
           </div>
 
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <!-- type="tel" shows numeric keyboard on mobile -->
             <input type="tel" id="phone" name="phone"
                    class="form-input" placeholder="+234 ...">
           </div>
 
           <div class="form-group">
             <label for="subject">Subject</label>
-            <!--
-              <select> creates a dropdown menu.
-              Each <option> is one choice.
-              value="" is what gets sent to the server.
-            -->
+            
             <select id="subject" name="subject" class="form-select">
               <option value="">— Select a subject —</option>
               <option value="visit">Planning a Visit</option>
@@ -475,9 +424,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    VISIT INFO STRIP
-  ============================================================ -->
   <div class="visit-strip">
     <div class="visit-strip-inner">
       <div class="visit-item">
@@ -495,11 +441,6 @@
     </div>
   </div>
 
-  <!-- ============================================================
-    MAP SECTION
-    Embedded Google Map of Ibeju-Lekki area.
-    Later you can replace the src with the exact location.
-  ============================================================ -->
   <section class="map-section">
     <div class="map-inner">
       <p class="eyebrow">Find Us</p>
@@ -509,12 +450,6 @@
         The map below shows the general area — ask us on WhatsApp for precise directions.
       </p>
 
-      <!--
-        <iframe> embeds another webpage inside ours.
-        This is Google Maps embedded for Ibeju-Lekki, Lagos.
-        src= is the URL of the map to show.
-        allowfullscreen lets users expand the map.
-      -->
       <div class="map-embed animate-1">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126820.20780403064!2d3.6453!3d6.4829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf5b6af2a6e6b%3A0x22e6cb9c7d8b5b59!2sIbeju-Lekki%2C%20Lagos!5e0!3m2!1sen!2sng!4v1699999999999"

@@ -5,25 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home — The Covenant of Peace Evangelical Mission</title>
-
-  <!--
-    rel="stylesheet" links our external CSS file.
-    The browser loads styles.css and applies all
-    the rules we wrote there to this page.
-  -->
   <link rel="stylesheet" href="styles.css">
-
-  <!--
-    Page-specific styles go here.
-    Only the HOME page needs these rules,
-    so we keep them separate from styles.css
-  -->
   <style>
-
-    /* ===== HERO SECTION =====
-       The full-screen banner on the home page.
-       100vh = 100% of the visible screen height.
-    */
     .home-hero {
       min-height: 100vh;
       background: linear-gradient(160deg, var(--navy) 0%, #1a0a2e 40%, var(--wine) 100%);
@@ -48,7 +31,6 @@
       font-family: serif;
     }
 
-    /* Glowing orbs — purely decorative atmosphere */
     .hero-glow-1 {
       position: absolute;
       width: 500px;
@@ -171,9 +153,6 @@
       50%       { transform: translateX(-50%) translateY(6px); }
     }
 
-    /* ===== WELCOME STRIP =====
-       A short bold statement section
-    */
     .welcome-strip {
       background: var(--wine);
       padding: 50px 6%;
@@ -285,11 +264,6 @@
     .prophet-image-box {
       width: 100%;
       aspect-ratio: 3/4;
-      /*
-        The photo has a transparent background so we use a
-        subtle gradient that shows through — making the prophet
-        appear to naturally emerge from the dark section.
-      */
       background: linear-gradient(180deg, rgba(22,37,80,0.3) 0%, rgba(107,30,62,0.5) 100%);
       border-radius: var(--radius);
       display: flex;
@@ -376,13 +350,6 @@
       flex-wrap: wrap;
     }
 
-    /* ===== LOGO & PROPHET PHOTO STYLES ===== */
-
-    /*
-      The logo image in the navbar.
-      We set a fixed height; width adjusts automatically.
-      object-fit: contain = keeps full logo visible without cropping.
-    */
     .navbar-logo {
       height: 44px;
       width: 44px;
@@ -391,11 +358,6 @@
       border: 2px solid rgba(201,168,76,0.4);
     }
 
-    /*
-      The prophet's photo fills the portrait box.
-      object-fit: cover = fills the area, crops if needed (like a background).
-      object-position: top = keeps the face visible when cropped.
-    */
     .prophet-photo {
       width: 100%;
       height: 100%;
@@ -403,10 +365,6 @@
       object-position: top center;
       border-radius: var(--radius);
       display: block;
-      /*
-        image-rendering: high-quality tells the browser to use
-        the best possible scaling method — keeps it sharp.
-      */
       image-rendering: high-quality;
     }
 
@@ -430,26 +388,12 @@
 </head>
 
 <body>
-
-  <!-- ============================================================
-    NAVIGATION
-    The <nav> tag is semantic HTML — it tells browsers and
-    screen readers "this is the navigation menu."
-    Each <a href="page.html"> links to another HTML file.
-  ============================================================ -->
   <nav class="navbar">
     <div class="navbar-brand">
-      <!--
-        <img> tag displays an image.
-        src="images/CHURCH_LOGO.png" is the PATH to the image file.
-        Since our images/ folder is next to index.html, we write images/filename.
-        alt= describes the image for screen readers and if image fails to load.
-      -->
       <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
       <span class="navbar-name">The Covenant of Peace<br>Evangelical Mission</span>
     </div>
     <ul class="navbar-links">
-      <!-- class="active" highlights the current page link -->
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
@@ -457,10 +401,6 @@
     </ul>
   </nav>
 
-  <!-- ============================================================
-    HERO SECTION
-    The first thing visitors see. Full screen height (100vh).
-  ============================================================ -->
   <section class="home-hero">
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
@@ -491,10 +431,6 @@
 
       <!-- Call to action buttons -->
       <div class="hero-actions animate-4">
-        <!--
-          href="services.html" links to the Services page.
-          When clicked, the browser loads that file.
-        -->
         <a href="services.html" class="btn btn--wine">View Services</a>
         <a href="contact.html" class="btn btn--outline-gold">Find Us</a>
       </div>
@@ -508,10 +444,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    WELCOME STRIP
-    A short inspiring message beneath the hero.
-  ============================================================ -->
   <div class="welcome-strip">
     <p>
       A community rooted in <strong>God's everlasting covenant</strong> —
@@ -520,10 +452,6 @@
     </p>
   </div>
 
-  <!-- ============================================================
-    QUICK INFO CARDS
-    Three at-a-glance cards linking to deeper pages.
-  ============================================================ -->
   <section class="quickinfo">
     <div class="quickinfo-grid">
 
@@ -566,19 +494,11 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    PROPHET SECTION
-    Features the church leader with a styled layout.
-  ============================================================ -->
   <section class="prophet-section">
     <div class="prophet-inner">
 
       <!-- Left: portrait placeholder -->
       <div class="prophet-image-wrap animate-1">
-        <!--
-          object-fit: cover in CSS makes the image fill the box
-          without stretching — like a background-size: cover.
-        -->
         <img src="images/PROPHET_OJO.png" alt="Prophet Ojo Samson Olumuyiwa" class="prophet-photo">
       </div>
 
@@ -607,10 +527,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    CALL TO ACTION BANNER
-    Encourages visitors to come to church or get in touch.
-  ============================================================ -->
   <section class="cta-banner">
     <h2>Come Worship With Us</h2>
     <p>Every service is an opportunity to encounter God's presence. You are welcome — just as you are.</p>
@@ -620,10 +536,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    FOOTER
-    Shared across all pages.
-  ============================================================ -->
   <footer class="footer">
     <div class="footer-grid">
 

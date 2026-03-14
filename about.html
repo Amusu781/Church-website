@@ -253,11 +253,6 @@
       border: 2px solid rgba(201,168,76,0.3);
     }
 
-    /*
-      The leader photo on the About page.
-      We override the old placeholder div styles
-      and make the real <img> fill the card naturally.
-    */
     .leader-photo-img {
       width: 100%;
       height: 100%;
@@ -280,8 +275,6 @@
 </head>
 
 <body>
-
-  <!-- NAVIGATION (same on every page) -->
   <nav class="navbar">
     <div class="navbar-brand">
       <img src="images/CHURCH_LOGO.png" alt="COPEM Church Logo" class="navbar-logo">
@@ -295,15 +288,11 @@
     </ul>
   </nav>
 
-  <!-- PAGE HERO (the banner at top — defined in styles.css) -->
   <header class="page-hero">
     <p class="page-hero-label animate-1">Who We Are</p>
     <h1 class="animate-2">About The Covenant<br>of Peace</h1>
   </header>
 
-  <!-- ============================================================
-    MISSION & VISION
-  ============================================================ -->
   <section class="section section--light">
     <div class="container">
       <p class="eyebrow">Our Purpose</p>
@@ -314,11 +303,6 @@
         faithfulness to every generation.
       </p>
 
-      <!--
-        data-letter is a custom HTML attribute.
-        Our CSS reads it with content: attr(data-letter)
-        to show it as a watermark.
-      -->
       <div class="mv-grid">
         <div class="mv-card mv-card--mission animate-1" data-letter="M">
           <h3>Our Mission</h3>
@@ -340,9 +324,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    CORE BELIEFS
-  ============================================================ -->
   <section class="beliefs-section">
     <div class="beliefs-inner">
       <p class="eyebrow">What We Believe</p>
@@ -352,10 +333,6 @@
         of the Christian faith.
       </p>
 
-      <!--
-        Each belief is a flex row: number + text side by side.
-        border-left gives it the colored left stripe.
-      -->
       <div class="beliefs-grid">
         <div class="belief-item animate-1">
           <span class="belief-num">01</span>
@@ -402,10 +379,7 @@
       </div>
     </div>
   </section>
-
-  <!-- ============================================================
-    LEADERSHIP
-  ============================================================ -->
+  
   <section class="leadership-section">
     <div class="leadership-inner">
       <p class="eyebrow" style="color:var(--gold-light)">
@@ -446,9 +420,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-    CORE VALUES
-  ============================================================ -->
   <section class="values-section">
     <div class="values-inner">
       <p class="eyebrow">How We Live</p>
@@ -493,7 +464,6 @@
     </div>
   </section>
 
-  <!-- FOOTER (same on every page) -->
   <footer class="footer">
     <div class="footer-grid">
       <div class="footer-brand">
