@@ -1,68 +1,36 @@
 /* ================================================
    STYLES.CSS — Shared styles for all pages
    The Covenant of Peace Evangelical Mission
-   ================================================
+   ================================================ */
 
-   HOW CSS WORKS:
-   Every rule follows this pattern:
-     selector { property: value; }
-   The selector targets an HTML element.
-   The property changes one thing about its look.
-*/
-
-/* ---- GOOGLE FONTS IMPORT ----
-   We load two fonts from Google:
-   - Playfair Display: elegant serif for headings
-   - DM Sans: clean and readable for body text
-*/
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-/* ---- CSS CUSTOM PROPERTIES (Variables) ----
-   :root means "the entire document"
-   Variables start with --
-   We reference them later with var(--name)
-   Change a color here = changes everywhere!
-*/
 :root {
-  /* === BRAND COLORS === */
-  --navy:        #0d1b3e;       /* Deep navy blue — primary */
-  --navy-mid:    #162550;       /* Slightly lighter navy */
-  --navy-light:  #1e3272;       /* For hover states */
-  --wine:        #6b1e3e;       /* Rich wine/burgundy */
-  --wine-light:  #8b2a52;       /* Lighter wine for accents */
-  --wine-glow:   rgba(107,30,62,0.15); /* Transparent wine for glows */
-  --gold:        #c9a84c;       /* Gold accent */
-  --gold-light:  #e8d5a3;       /* Pale gold */
-
-  /* === NEUTRALS === */
+  --navy:        #0d1b3e;
+  --navy-mid:    #162550;
+  --navy-light:  #1e3272;
+  --wine:        #6b1e3e;
+  --wine-light:  #8b2a52;
+  --wine-glow:   rgba(107,30,62,0.15);
+  --gold:        #c9a84c;
+  --gold-light:  #e8d5a3;
   --white:       #ffffff;
   --off-white:   #f8f6f3;
-  --light-bg:    #f0eef8;       /* Faint blue-tinted background */
+  --light-bg:    #f0eef8;
   --text-dark:   #1a1a2e;
   --text-muted:  #6b6880;
   --border:      rgba(13, 27, 62, 0.12);
-
-  /* === SPACING & SHAPE === */
   --radius:      6px;
   --section-pad: 90px 6%;
 }
 
-/* ---- RESET ----
-   Browsers add default margins and paddings.
-   We zero them out so WE control all spacing.
-   box-sizing: border-box means padding is
-   included INSIDE the element's width.
-*/
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ---- BASE STYLES ---- */
-html {
-  scroll-behavior: smooth; /* Smooth scrolling between anchors */
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -70,23 +38,15 @@ body {
   color: var(--text-dark);
   line-height: 1.75;
   font-size: 16px;
-  -webkit-font-smoothing: antialiased; /* Crisper text on Mac */
+  -webkit-font-smoothing: antialiased;
 }
 
-img {
-  max-width: 100%; /* Images never overflow their container */
-  display: block;
-}
+img { max-width: 100%; display: block; }
 
-a {
-  color: inherit;        /* Links use parent color, not default blue */
-  text-decoration: none; /* No underlines by default */
-}
+a { color: inherit; text-decoration: none; }
 
 /* ================================================
    NAVIGATION
-   position: fixed = stays at top while scrolling
-   z-index: 1000 = sits above all other elements
    ================================================ */
 .navbar {
   position: fixed;
@@ -108,10 +68,7 @@ a {
   gap: 0.75rem;
 }
 
-.navbar-cross {
-  color: var(--gold);
-  font-size: 1.3rem;
-}
+.navbar-cross { color: var(--gold); font-size: 1.3rem; }
 
 .navbar-name {
   font-family: 'Playfair Display', serif;
@@ -121,10 +78,9 @@ a {
   max-width: 200px;
 }
 
-/* nav links list — flex means side by side */
 .navbar-links {
   display: flex;
-  list-style: none; /* removes bullet points */
+  list-style: none;
   gap: 2.5rem;
   align-items: center;
 }
@@ -135,43 +91,106 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.7);
-  /* transition = smooth change over 0.3 seconds */
   transition: color 0.3s ease;
   position: relative;
   padding-bottom: 4px;
 }
 
-/* The underline that slides in on hover */
 .navbar-links a::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0;
-  width: 0;              /* starts with zero width */
+  width: 0;
   height: 1px;
   background: var(--gold);
-  transition: width 0.3s ease; /* animate to full width */
+  transition: width 0.3s ease;
 }
 
-/* :hover = applies when mouse is over the element */
-.navbar-links a:hover {
-  color: var(--white);
-}
-
-.navbar-links a:hover::after {
-  width: 100%; /* underline slides to full width */
-}
-
-/* The currently active page link */
-.navbar-links a.active {
-  color: var(--gold);
-}
-
-.navbar-links a.active::after {
-  width: 100%;
-}
+.navbar-links a:hover { color: var(--white); }
+.navbar-links a:hover::after { width: 100%; }
+.navbar-links a.active { color: var(--gold); }
+.navbar-links a.active::after { width: 100%; }
 
 /* ================================================
-   PAGE HERO (used on every page except home)
+   HAMBURGER BUTTON — visible only on mobile
+   ================================================ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animates into an X when open */
+.hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* ================================================
+   MOBILE MENU — slides down from navbar
+   ================================================ */
+.mobile-menu {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: rgba(13, 27, 62, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  z-index: 999;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 6%;
+}
+
+.mobile-menu.open {
+  max-height: 400px;
+  padding: 20px 6%;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu ul li a {
+  display: block;
+  padding: 16px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.3s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.mobile-menu ul li:last-child a { border-bottom: none; }
+
+.mobile-menu ul li a:hover,
+.mobile-menu ul li a.active { color: var(--gold); }
+
+/* ================================================
+   PAGE HERO
    ================================================ */
 .page-hero {
   background: linear-gradient(135deg, var(--navy) 0%, var(--wine) 100%);
@@ -180,7 +199,6 @@ a {
   overflow: hidden;
 }
 
-/* Decorative cross watermark in background */
 .page-hero::before {
   content: '✝';
   position: absolute;
@@ -205,7 +223,6 @@ a {
   gap: 0.8rem;
 }
 
-/* The horizontal line before the label text */
 .page-hero-label::before {
   content: '';
   display: inline-block;
@@ -216,7 +233,6 @@ a {
 
 .page-hero h1 {
   font-family: 'Playfair Display', serif;
-  /* clamp(min, preferred, max) = responsive font size */
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 700;
   color: var(--white);
@@ -227,37 +243,14 @@ a {
 /* ================================================
    REUSABLE SECTION COMPONENTS
    ================================================ */
+.section { padding: var(--section-pad); }
+.section--light { background-color: var(--off-white); }
+.section--mid { background-color: var(--light-bg); }
+.section--dark { background-color: var(--navy); color: var(--white); }
+.section--wine { background-color: var(--wine); color: var(--white); }
 
-/* Generic section padding */
-.section {
-  padding: var(--section-pad);
-}
+.container { max-width: 1120px; margin: 0 auto; }
 
-.section--light {
-  background-color: var(--off-white);
-}
-
-.section--mid {
-  background-color: var(--light-bg);
-}
-
-.section--dark {
-  background-color: var(--navy);
-  color: var(--white);
-}
-
-.section--wine {
-  background-color: var(--wine);
-  color: var(--white);
-}
-
-/* Max-width container to keep content centered */
-.container {
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-/* The small label above section titles */
 .eyebrow {
   font-size: 0.68rem;
   font-weight: 600;
@@ -279,18 +272,12 @@ a {
   border-radius: 2px;
 }
 
-/* When eyebrow is inside a dark section, use gold */
 .section--dark .eyebrow,
-.section--wine .eyebrow {
-  color: var(--gold-light);
-}
+.section--wine .eyebrow { color: var(--gold-light); }
 
 .section--dark .eyebrow::before,
-.section--wine .eyebrow::before {
-  background: var(--gold-light);
-}
+.section--wine .eyebrow::before { background: var(--gold-light); }
 
-/* Section headings */
 .section-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
@@ -301,9 +288,7 @@ a {
 }
 
 .section--dark .section-title,
-.section--wine .section-title {
-  color: var(--white);
-}
+.section--wine .section-title { color: var(--white); }
 
 .section-body {
   font-size: 0.95rem;
@@ -313,9 +298,7 @@ a {
 }
 
 .section--dark .section-body,
-.section--wine .section-body {
-  color: rgba(255,255,255,0.7);
-}
+.section--wine .section-body { color: rgba(255,255,255,0.7); }
 
 /* ================================================
    BUTTONS
@@ -334,78 +317,24 @@ a {
   border: none;
 }
 
-/* Primary = navy filled button */
-.btn--primary {
-  background: var(--navy);
-  color: var(--white);
-}
+.btn--primary { background: var(--navy); color: var(--white); }
+.btn--primary:hover { background: var(--navy-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,27,62,0.25); }
 
-.btn--primary:hover {
-  background: var(--navy-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(13,27,62,0.25);
-}
+.btn--wine { background: var(--wine); color: var(--white); }
+.btn--wine:hover { background: var(--wine-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,30,62,0.3); }
 
-/* Wine = wine/burgundy button */
-.btn--wine {
-  background: var(--wine);
-  color: var(--white);
-}
+.btn--outline-gold { background: transparent; color: var(--gold-light); border: 1px solid var(--gold); }
+.btn--outline-gold:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
 
-.btn--wine:hover {
-  background: var(--wine-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(107,30,62,0.3);
-}
-
-/* Gold outlined button */
-.btn--outline-gold {
-  background: transparent;
-  color: var(--gold-light);
-  border: 1px solid var(--gold);
-}
-
-.btn--outline-gold:hover {
-  background: var(--gold);
-  color: var(--navy);
-  transform: translateY(-2px);
-}
-
-/* White outlined button */
-.btn--outline-white {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid rgba(255,255,255,0.5);
-}
-
-.btn--outline-white:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: var(--white);
-  transform: translateY(-2px);
-}
+.btn--outline-white { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.5); }
+.btn--outline-white:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-2px); }
 
 /* ================================================
-   DIVIDER — Decorative gold cross divider
+   DIVIDER
    ================================================ */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.divider span {
-  color: var(--gold);
-  font-size: 0.9rem;
-}
+.divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.divider span { color: var(--gold); font-size: 0.9rem; }
 
 /* ================================================
    FOOTER
@@ -419,7 +348,6 @@ a {
 
 .footer-grid {
   display: grid;
-  /* repeat(3, 1fr) = three equal columns */
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
   max-width: 1120px;
@@ -434,43 +362,14 @@ a {
   margin-bottom: 0.8rem;
 }
 
-.footer-brand p {
-  font-size: 0.82rem;
-  line-height: 1.8;
-  font-style: italic;
-  color: var(--gold-light);
-}
+.footer-brand p { font-size: 0.82rem; line-height: 1.8; font-style: italic; color: var(--gold-light); }
 
-.footer-col h4 {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1rem;
-}
+.footer-col h4 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
 
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.footer-col ul li a {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.55);
-  transition: color 0.3s ease;
-}
-
-.footer-col ul li a:hover {
-  color: var(--gold-light);
-}
-
-.footer-col p {
-  font-size: 0.85rem;
-  line-height: 1.9;
-}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col ul li a { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.3s ease; }
+.footer-col ul li a:hover { color: var(--gold-light); }
+.footer-col p { font-size: 0.85rem; line-height: 1.9; }
 
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -482,7 +381,7 @@ a {
 }
 
 /* ================================================
-   ANIMATIONS — reusable fade-in classes
+   ANIMATIONS
    ================================================ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -502,20 +401,13 @@ a {
 
 /* ================================================
    MOBILE RESPONSIVE
-   @media queries apply styles at specific screen widths.
-   max-width: 768px targets phones and small tablets.
    ================================================ */
 @media (max-width: 768px) {
-  :root {
-    --section-pad: 60px 5%;
-  }
+  :root { --section-pad: 60px 5%; }
 
-  .navbar-links {
-    display: none; /* Hide links on mobile — would need a hamburger menu */
-  }
+  /* Show hamburger, hide desktop links */
+  .hamburger { display: flex; }
+  .navbar-links { display: none; }
 
-  .footer-grid {
-    grid-template-columns: 1fr; /* Stack into one column */
-    gap: 2rem;
-  }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
