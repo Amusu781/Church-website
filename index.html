@@ -297,6 +297,105 @@
       .prophet-inner  { grid-template-columns: 1fr; gap: 2.5rem; }
     }
 
+    /* ===== SLIDESHOW BANNER ===== */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  margin-top: 72px; /* clears the fixed navbar */
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide.active { opacity: 1; }
+
+.slide-1 { background-image: url('images/slide1.jpg'); }
+.slide-2 { background-image: url('images/slide2.jpg'); }
+.slide-3 { background: linear-gradient(135deg, #6b1e3e, #1a0a2e); }
+
+.slide-caption {
+  text-align: center;
+  color: black;
+  z-index: 1;
+  padding: 0 6%;
+}
+
+.slide-caption h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.slide-caption p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: rgba(10, 10, 10, 0.8);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* Dot indicators */
+.slideshow-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* Prev/Next arrows */
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-arrow:hover { background: rgba(255,255,255,0.25); }
+.slide-arrow--prev { left: 20px; }
+.slide-arrow--next { right: 20px; }
+
+@media (max-width: 768px) {
+  .slideshow { height: 320px; }
+}
   </style>
 </head>
 
@@ -330,6 +429,43 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
+
+  <!-- SLIDESHOW BANNER -->
+<div class="slideshow" id="slideshow">
+
+  <div class="slide slide-1 active">
+    <div class="slide-caption">
+      <h2>Welcome to COPEM</h2>
+      <p>A community rooted in God's everlasting covenant</p>
+    </div>
+  </div>
+
+  <div class="slide slide-2">
+    <div class="slide-caption">
+      <h2>Sunday Service</h2>
+      <p>Join us every Sunday — 8:30 AM for the Glorious Service</p>
+    </div>
+  </div>
+
+  <div class="slide slide-3">
+    <div class="slide-caption">
+      <h2>Come As You Are</h2>
+      <p>Every soul is welcome at The Covenant of Peace</p>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="slide-arrow slide-arrow--prev" onclick="moveSlide(-1)">‹</button>
+  <button class="slide-arrow slide-arrow--next" onclick="moveSlide(1)">›</button>
+
+  <!-- Dots -->
+  <div class="slideshow-dots">
+    <div class="dot active" onclick="goToSlide(0)"></div>
+    <div class="dot" onclick="goToSlide(1)"></div>
+    <div class="dot" onclick="goToSlide(2)"></div>
+  </div>
+
+</div>
 
   <section class="home-hero">
     <div class="hero-glow-1"></div>
@@ -469,6 +605,26 @@
         mobileMenu.classList.remove('open');
       });
     });
+
+    // Slideshow
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let current = 0;
+let timer = setInterval(() => moveSlide(1), 8000);
+
+function moveSlide(dir) {
+  goToSlide((current + dir + slides.length) % slides.length);
+}
+
+function goToSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  clearInterval(timer);
+  timer = setInterval(() => moveSlide(1), 8000);
+}
   </script>
 
 </body>
